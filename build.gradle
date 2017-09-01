@@ -8,10 +8,6 @@ buildscript {
         mavenCentral()
         jcenter()
     }
-
-    dependencies {
-        classpath "io.spring.gradle:dependency-management-plugin:${depManagementVersion}"
-    }
 }
 
 allprojects {

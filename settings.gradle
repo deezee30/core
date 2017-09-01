@@ -1,6 +1,8 @@
 rootProject.name = 'core'
 
-include 'Core', "Bukkit", "Sponge"
+include 'Core', "Bukkit", "Bungee", "Sponge"
+
 findProject(':Core')?.name = 'core-base'
 findProject(':Bukkit')?.name = 'core-bukkit'
+findProject(':Bungee')?.name = 'core-bungee'
 findProject(':Sponge')?.name = 'core-sponge'
