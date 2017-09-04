@@ -8,6 +8,7 @@ package com.maulss.core.math;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonObject;
+import com.maulss.core.util.MathUtil;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
@@ -22,24 +23,24 @@ import java.util.Random;
  */
 public class Vector3D implements Cloneable, Serializable {
 
-    private static final long serialVersionUID = -2657651106777219169L;
+    private static final transient long serialVersionUID = -2657651106777219169L;
 
-    private static final Random random = new Random();
+    private static final transient Random random = new Random();
 
     /**
      * Threshold for fuzzy equals().
      */
-    private static final double epsilon = 0.00001;
+    private static final transient double epsilon = 0.00001;
 
     /**
      * Point or vector with all three coordinates set to 0.
      */
-    public static final Vector3D ZERO = new Vector3D(0, 0, 0);
+    public static final transient Vector3D ZERO = new Vector3D(0d, 0d, 0d);
 
     /**
      * The x component.
      */
-    private double x;
+    protected double x;
 
     /**
      * The x component.
@@ -53,7 +54,7 @@ public class Vector3D implements Cloneable, Serializable {
     /**
      * The y component.
      */
-    private double y;
+    protected double y;
 
     /**
      * The y component.
@@ -67,7 +68,7 @@ public class Vector3D implements Cloneable, Serializable {
     /**
      * The z component.
      */
-    private double z;
+    protected double z;
 
     /**
      * The z component.
@@ -289,11 +290,11 @@ public class Vector3D implements Cloneable, Serializable {
 
         final double delta = (ax * x + ay * y + az * z) / Math.sqrt((ax * ax + ay * ay + az * az) * (x * x + y * y + z * z));
 
-        if (delta > 1.0) {
-            return 0.0;
+        if (delta > 1d) {
+            return 0d;
         }
-        if (delta < -1.0) {
-            return 180.0;
+        if (delta < -1d) {
+            return 180d;
         }
 
         return Math.toDegrees(Math.acos(delta));
@@ -333,11 +334,11 @@ public class Vector3D implements Cloneable, Serializable {
 
         final double delta = (ax * bx + ay * by + az * bz) / Math.sqrt((ax * ax + ay * ay + az * az) * (bx * bx + by * by + bz * bz));
 
-        if (delta > 1.0) {
-            return 0.0;
+        if (delta > 1d) {
+            return 0d;
         }
-        if (delta < -1.0) {
-            return 180.0;
+        if (delta < -1d) {
+            return 180d;
         }
 
         return Math.toDegrees(Math.acos(delta));
@@ -526,7 +527,7 @@ public class Vector3D implements Cloneable, Serializable {
     }
 
     public static Vector3D get2DCentroid(final Vector3D... vectors) {
-        double centroidX = 0, centroidZ = 0;
+        double centroidX = 0d, centroidZ = 0d;
 
         for (Vector3D vector : vectors) {
             centroidX += vector.x;
@@ -534,12 +535,12 @@ public class Vector3D implements Cloneable, Serializable {
         }
 
         int len = vectors.length;
-        return new Vector3D(centroidX / len, 0, centroidZ / len);
+        return new Vector3D(centroidX / len, 0d, centroidZ / len);
     }
 
     public static Vector3D get2DCentroid(final int y,
                                          final Vector3D... vectors) {
-        double centroidX = 0, centroidZ = 0;
+        double centroidX = 0d, centroidZ = 0d;
 
         for (Vector3D vector : vectors) {
             centroidX += vector.x;
@@ -555,7 +556,7 @@ public class Vector3D implements Cloneable, Serializable {
     }
 
     public static Vector3D get3DCentroid(final Vector3D... vectors) {
-        double centroidX = 0, centroidY = 0, centroidZ = 0;
+        double centroidX = 0d, centroidY = 0d, centroidZ = 0d;
 
         for (Vector3D vector : vectors) {
             centroidX += vector.x;

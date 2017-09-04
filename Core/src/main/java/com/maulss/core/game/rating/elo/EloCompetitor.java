@@ -9,7 +9,7 @@ package com.maulss.core.game.rating.elo;
 import com.maulss.core.game.rating.Competitor;
 import com.maulss.core.game.rating.KFactor;
 import com.maulss.core.game.rating.StaticKFactor;
-import com.maulss.core.math.MathUtil;
+import com.maulss.core.util.MathUtil;
 
 public interface EloCompetitor extends Competitor {
 

@@ -5,7 +5,7 @@
 
 package com.maulss.core.database;
 
-import com.maulss.core.math.MathUtil;
+import com.maulss.core.util.MathUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 

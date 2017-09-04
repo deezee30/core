@@ -7,7 +7,7 @@
 package com.maulss.core.game.rating.glicko;
 
 import com.maulss.core.game.rating.Competitor;
-import com.maulss.core.math.MathUtil;
+import com.maulss.core.util.MathUtil;
 
 public interface GlickoCompetitor extends Competitor {
 

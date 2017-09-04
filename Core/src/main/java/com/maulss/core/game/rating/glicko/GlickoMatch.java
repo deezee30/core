@@ -1,6 +1,6 @@
 package com.maulss.core.game.rating.glicko;
 
-import org.apache.commons.lang3.Validate;
+import static org.apache.commons.lang3.Validate.notNull;
 
 public final class GlickoMatch {
 
@@ -11,9 +11,9 @@ public final class GlickoMatch {
     public GlickoMatch(final GlickoProfile firstPlayer,
                        final GlickoProfile secondPlayer,
                        final Outcome outcome) {
-        this.firstPlayer    = Validate.notNull(firstPlayer);
-        this.secondPlayer   = Validate.notNull(secondPlayer);
-        this.outcome        = Validate.notNull(outcome);
+        this.firstPlayer    = notNull(firstPlayer);
+        this.secondPlayer   = notNull(secondPlayer);
+        this.outcome        = notNull(outcome);
     }
 
     public GlickoProfile getFirstPlayer() {
@@ -25,7 +25,7 @@ public final class GlickoMatch {
     }
 
     public Outcome getOutcome(final GlickoProfile competitor) {
-        Validate.notNull(competitor);
+        notNull(competitor);
 
         if (competitor.equals(firstPlayer)) return outcome;
         if (competitor.equals(secondPlayer)) return outcome.getOpposite();
@@ -35,7 +35,7 @@ public final class GlickoMatch {
     }
 
     public GlickoProfile getOpponent(final GlickoProfile competitor) {
-        Validate.notNull(competitor);
+        notNull(competitor);
 
         if (competitor.equals(firstPlayer)) return secondPlayer;
         if (competitor.equals(secondPlayer)) return firstPlayer;

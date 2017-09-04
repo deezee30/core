@@ -5,7 +5,7 @@
 
 package com.maulss.core;
 
-public final class Core {
+final class Core {
 
     public static void main(final String[] args) throws Exception {
         // set up GUI

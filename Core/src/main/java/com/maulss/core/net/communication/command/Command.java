@@ -8,12 +8,13 @@ package com.maulss.core.net.communication.command;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Optional;
+
+import static org.apache.commons.lang3.Validate.notNull;
 
 public class Command {
 
@@ -29,9 +30,9 @@ public class Command {
     public Command(final String name,
                    final CommandType type,
                    final Optional<JsonElement> commandData) {
-        this.name = Validate.notNull(name, "name");
-        this.type = Validate.notNull(type, "type");
-        this.commandData = Validate.notNull(commandData, "commandData");
+        this.name = notNull(name, "name");
+        this.type = notNull(type, "type");
+        this.commandData = notNull(commandData, "commandData");
     }
 
     public String getName() {

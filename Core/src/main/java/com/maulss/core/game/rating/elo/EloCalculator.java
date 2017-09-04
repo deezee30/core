@@ -8,7 +8,8 @@ package com.maulss.core.game.rating.elo;
 
 import com.maulss.core.game.rating.KFactor;
 import com.maulss.core.game.rating.StaticKFactor;
-import org.apache.commons.lang3.Validate;
+
+import static org.apache.commons.lang3.Validate.notNull;
 
 /**
  * This class handles the player Elo rating system calculations.
@@ -39,9 +40,9 @@ public final class EloCalculator {
     public static int newRating(final EloCompetitor competitor,
                                 final EloCompetitor opponent,
                                 final EloMatchOutcome outcome) {
-        Validate.notNull(competitor);
-        Validate.notNull(opponent);
-        Validate.notNull(outcome);
+        notNull(competitor);
+        notNull(opponent);
+        notNull(outcome);
 
         int rating = competitor.getRating();
         return Math.min(MAX_ELO, Math.max(MIN_ELO, calculateNewRating(
@@ -75,7 +76,7 @@ public final class EloCalculator {
                                 final boolean provisional) {
         return Math.min(MAX_ELO, Math.max(MIN_ELO, calculateNewRating(
                 rating,
-                Validate.notNull(outcome),
+                notNull(outcome),
                 calculateExpectedScore(rating, opponentRating),
                 StaticKFactor.getKFactor(rating, provisional)
         )));

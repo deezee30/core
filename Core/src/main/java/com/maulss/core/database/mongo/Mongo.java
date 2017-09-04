@@ -268,6 +268,8 @@ public final class Mongo implements Database {
         client.close();
         client = null;
 
+        init = false;
+
         return this;
     }
 

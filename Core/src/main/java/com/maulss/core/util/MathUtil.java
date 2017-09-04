@@ -3,7 +3,7 @@
  * Made on 31/07/2017
  */
 
-package com.maulss.core.math;
+package com.maulss.core.util;
 
 import org.apache.commons.lang3.Validate;
 
