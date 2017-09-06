@@ -1,3 +1,25 @@
+repositories {
+    // spigotmc-repo
+    maven {
+        url "https://hub.spigotmc.org/nexus/content/groups/public/"
+    }
+    // dmulloy2-repo
+    maven {
+        url "http://repo.dmulloy2.net/nexus/repository/public/"
+    }
+}
+
 dependencies {
     compile project(":core-base")
+
+    // Spigot API
+    compile("org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT") {
+        exclude group: "commons-lang"
+        exclude group: "com.google.code.gson"
+        exclude group: "com.google.guava"
+        exclude group: "com.googlecode.json-simple"
+    }
+
+    // ProtocolLib
+    compile "com.comphenix.protocol:ProtocolLib-API:4.2.1"
 }
