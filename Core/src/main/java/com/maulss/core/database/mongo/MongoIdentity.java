@@ -10,7 +10,9 @@ import com.google.common.collect.Lists;
 import com.maulss.core.Logger;
 import com.maulss.core.database.*;
 import com.maulss.core.database.callback.DatabaseCallback;
+import com.maulss.core.database.callback.VoidBulkWriteResult;
 import com.maulss.core.database.callback.VoidCallback;
+import com.maulss.core.database.callback.VoidUpdateResult;
 import com.maulss.core.database.mongo.data.MongoDataOperator;
 import com.mongodb.async.client.MongoCollection;
 import com.mongodb.bulk.BulkWriteResult;
@@ -21,6 +23,7 @@ import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +49,10 @@ public interface MongoIdentity extends Identity {
      * {@code UUID}, <b>OR</b> override the default method
      * {@link #getDatabaseKey()}.</p>
      *
+     * <p>This method will be called many times over and over by internal
+     * methods. This means that the return of this value should be cached
+     * instead of obtaining a new collection instance each time.</p>
+     *
      * @return the profile's general database collection
      */
     MongoCollection<Document> getCollection();
@@ -63,11 +70,23 @@ public interface MongoIdentity extends Identity {
     }
 
     default void retrieveAll(final DatabaseCallback<List<Document>> doAfter) {
-        getCollection().find().into(new LinkedList<>(), doAfter);
+        MongoCollection<Document> coll = getCollection();
+        if (coll == null) {
+            doAfter.onResult(Collections.emptyList());
+            return;
+        }
+
+        coll.find().into(new LinkedList<>(), doAfter);
     }
 
     default void retrieve(final DatabaseCallback<Document> doAfter) {
-        getCollection().find(getSearchQuery()).first(doAfter);
+        MongoCollection<Document> coll = getCollection();
+        if (coll == null) {
+            doAfter.onResult(null);
+            return;
+        }
+
+        coll.find(getSearchQuery()).first(doAfter);
     }
 
     default void insert(final Map<DatabaseKey, Object> map) {
@@ -82,12 +101,19 @@ public interface MongoIdentity extends Identity {
     default void insert(final Map<DatabaseKey, Object> map,
                         final VoidCallback doAfter) {
         checkNotNull(map, "insert map");
+
+        MongoCollection<Document> coll = getCollection();
+        if (coll == null) {
+            doAfter.onResult();
+            return;
+        }
+
         Document insert = new Document();
         for (Map.Entry<DatabaseKey, Object> entry : map.entrySet()) {
             insert.append(entry.getKey().getKey(), entry.getValue());
         }
 
-        getCollection().insertOne(insert, doAfter);
+        coll.insertOne(insert, doAfter);
     }
 
     default void update(final DatabaseKey stat,
@@ -143,7 +169,13 @@ public interface MongoIdentity extends Identity {
                         final DatabaseCallback<UpdateResult> doAfter) {
         checkNotNull(stat);
 
-        getCollection().updateOne(getSearchQuery(),
+        MongoCollection<Document> coll = getCollection();
+        if (coll == null) {
+            doAfter.onResult(new VoidUpdateResult());
+            return;
+        }
+
+        coll.updateOne(getSearchQuery(),
                 new Document(operator.getOperator(),
                         new Document(stat.getKey(), obj)), doAfter);
     }
@@ -195,6 +227,12 @@ public interface MongoIdentity extends Identity {
                         final DatabaseCallback<BulkWriteResult> doAfter) {
         checkNotNull(operations);
 
-        getCollection().bulkWrite(operations, doAfter);
+        MongoCollection<Document> coll = getCollection();
+        if (coll == null) {
+            doAfter.onResult(new VoidBulkWriteResult());
+            return;
+        }
+
+        coll.bulkWrite(operations, doAfter);
     }
 }
