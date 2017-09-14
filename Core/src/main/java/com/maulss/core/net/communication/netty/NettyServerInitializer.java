@@ -1,5 +1,5 @@
 /*
- * rv_core
+ * Part of core.
  * 
  * Created on 14 July 2017 at 1:17 AM.
  */

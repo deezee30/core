@@ -1,0 +1,80 @@
+##########################################################
+# +----------------------------------------------------+ #
+# |                                                    | #
+# |            Part of core.for RiddlesVillage          | #
+# |                                                    | #
+# +----------------------------------------------------+ #
+# | Version . . . . . . . . . . . . . . . . . . .  0.1 | #
+# | Java  . . . . . . . . . . . . . . . . . . . . .  8 | #
+# | JDK . . . . . . . . . . . . . . . . . . . . .  1.8 | #
+# | Line Endings  . . . . . . . . . . . . . . . . Unix | #
+# | Compiler  . . . . . . . . . . . . . . . .  Maven 3 | #
+# +----------------------------------------------------+ #
+# | An engine built for RiddlesVillage used to provide | #
+# | stabilized support for various simple and          | #
+# | difficult tasks.  Efficiency, compatibility and    | #
+# | speed are the three priorities used when working   | #
+# | with Riddles plugins.                              | #
+# +----------------------------------------------------+ #
+##########################################################
+
+# Please keep this option false until told to change it.
+debug: true
+
+# The default language to be used for players until they change it.
+default-locale: "english"
+
+chat:
+  # Whether or not to rely on the core to set the chat format
+  format: true
+
+  # How many lines are sent to clear the chat.
+  clear-lines: 30
+
+  # Maximum amount of messages in 20 seconds:
+  max-messages: 5
+
+  # The amount of allowed spam violations before starting to take action
+  spam-violations-permitted: 3
+
+  # Number of seconds for violation cooldowns (0 to disable)
+  violation-cooldown: 300
+
+# For specific servers where the world isn't
+# vanilla survival based, this setting can be turned
+# to true to increase performance.
+efficient-world-management: false
+
+# The commands that any player can execute while in game.
+allowed-commands-when-disabled:
+- "hub"
+- "leave"
+- "l"
+- "quit"
+- "q"
+- "spectate"
+- "spec"
+- "sp"
+- "class"
+- "kits"
+- "kit"
+- "k"
+- "experience"
+- "points"
+- "exp"
+- "xp"
+- "player"
+- "stats"
+- "st"
+- "arena"
+- "a"
+- "teleport"
+- "tp"
+- "report"
+- "rep"
+
+##########################################################
+# +----------------------------------------------------+ #
+# |       End of configuration file "config.yml"       | #
+# +----------------------------------------------------+ #
+##########################################################

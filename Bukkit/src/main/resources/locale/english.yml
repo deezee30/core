@@ -1,0 +1,176 @@
+##########################################################
+# +----------------------------------------------------+ #
+# |                                                    | #
+# |            Part of core.for RiddlesVillage          | #
+# |                                                    | #
+# +----------------------------------------------------+ #
+# | Version . . . . . . . . . . . . . . . . . . .  0.1 | #
+# | Java  . . . . . . . . . . . . . . . . . . . . .  8 | #
+# | JDK . . . . . . . . . . . . . . . . . . . . .  1.8 | #
+# | Line Endings  . . . . . . . . . . . . . . . . Unix | #
+# | Compiler  . . . . . . . . . . . . . . . .  Maven 3 | #
+# +----------------------------------------------------+ #
+# | An engine built for RiddlesVillage used to provide | #
+# | stabilized support for various simple and          | #
+# | difficult tasks.  Efficiency, compatibility and    | #
+# | speed are the three priorities used when working   | #
+# | with Riddles plugins.                              | #
+# +----------------------------------------------------+ #
+##########################################################
+
+# Make sure the server is offline while saving this file.
+# Colour codes are supperted.
+# Place the Strings inside parenthesis. ("" or '')
+# If you require to use " or ' inside a message, double it. (' -> '' or " -> "")
+# Use this tool to see if your YAML file appears to be correct: http://wiki.ess3.net/yaml/
+# If you don't want a certain message to be broadcasted at all, you can put "null" or remove the line instead.
+
+restart: "&cServer restarting. Try reconnecting in a few seconds!"
+border: "~            &2&m--------------"
+
+chat:
+  # Unless "~" is placed before the message, the prefix will appear before each general message.
+  prefix: "&aCore&3&l >>&7 "
+
+  # %s = The player's rank.
+  # %s = The display name of the player.
+  # %s = The message the player has sent.
+  format: "%s &2&l:: &e%s&3&l >> &7%s"
+
+  # $player = The player that cleared the chat.
+  clear: "&6Chat has been cleared by $player"
+
+  premium-only: "The chat is currently enabled only for premium users!"
+
+  mute:
+    no-ads: "&cYou are not allowed to advertise on the server"
+    no-spam: "&cPlease don't exceed 5 messages per 20 seconds!"
+    no-single-character: "&cPlease enter a longer message."
+    muted: "&cYou have been muted for violating the chat rules!"
+    reminder: "&cYou can not talk at the moment"
+    last-reminder: "&cCareful! One more of those and you will be muted!"
+
+coins:
+  # $coins = The amount of coins the player has.
+  notify-self: "You have &6$coins&7 coins"
+
+  # $player = The player with coins.
+  # $coins = The amount of coins the player has.
+  notify-other: "$player&7 has &6$coins&7 coins"
+
+  # $coins = The new coin value.
+  # $player = Player whose account was modified.
+  set: "&6$coins&7 coins have been set to &6$player's&7 account"
+
+  # $coins = Amount of coins that has been given.
+  # $player = Player whose account was modified.
+  give: "&6$coins&7 coins have been added to &6$player's&7 account"
+
+  # $coins = Amount of coins that has been taken away.
+  # $player = Player whose account was modified.
+  take: "&6$coins&7 coins have been taken from &6$player's&7 account"
+
+tokens:
+  # $tokens = The amount of tokens the player has.
+  notify-self: "You have &6$tokens&7 tokens"
+
+  # $player = The player with tokens.
+  # $tokens = The amount of tokens the player has.
+  notify-other: "$player&7 has &6$tokens&7 tokens"
+
+  # $tokens = The new token value.
+  # $player = Player whose account was modified.
+  set: "&6$tokens&7 tokens have been set to &6$player's&7 account"
+
+  # $tokens = Amount of tokens that has been given.
+  # $player = Player whose account was modified.
+  give: "&6$tokens&7 tokens have been added to &6$player's&7 account"
+
+  # $tokens = Amount of tokens that has been taken away.
+  # $player = Player whose account was modified.
+  take: "&6$tokens&7 tokens have been taken from &6$player's&7 account"
+
+player:
+  # $killer = The killer.
+  # $hearts = The amount of hearts left on the killer when the player died.
+  death: "You were killed by &6$killer&7. He had &6$hearts&7 hearts left"
+
+  # $victim = The player that has been killed.
+  kill: "You killed &6$victim"
+
+  report: "&6Your report has been sent"
+
+  # $player = The player who has been reported.
+  staff-notify-report: "&6$player&7 has been reported"
+
+  error:
+    no-permission: "&cYou lack permissions to perform this action"
+    server-full: "&cThis server is full. Buy premium to access full servers"
+
+    # $player = The player's name that wasn't found.
+    not-found: "&6$player&c was not found"
+
+report:
+  send: "&6Your report has been sent"
+
+  # $player = The player who has been reported.
+  notify-staff: "&6$player&7 has been reported"
+
+  # $reports = The amount of reports that have been dismissed.
+  dismiss-all: "&6$reports&7 reports have been dismissed"
+
+command:
+  # $command = The disabled command.
+  blocked: "&6/$command&c is blocked at the moment"
+
+  not-found: "&cCommand was not found"
+  invalid-value: "&cThe amount provided must be a positive integer"
+  only-console: "&cOnly the console can use this command"
+  only-players: "&cOnly players can use this command"
+
+  # $usage = The command format.
+  usage: "Correct usage: &e$usage"
+
+premium:
+  # $user = The user whose premium status has changed.
+  promoted: "&6$user is now a premium user"
+
+  # $user = The user whose premium status has changed.
+  demoted: "&6$user is no longer a premium user"
+
+  # $user = The user that is already premium.
+  already-true: "&c$user is already a premium user"
+
+  # $user = The user that is already non-premium.
+  already-false: "&c$user is already a non-premium user"
+
+  # $user    = The user whose premium status is shown.
+  # $premium = "true" or "false" whether they are premium or not.
+  notify: "&6$user's premium status is enabled: $premium"
+
+spawn:
+  # $spawn = The name of the spawn that has been created/modified.
+  # $world = The world in which the spawn was created/modified.
+  add: "Spawn &6$spawn&7 has been set in world &6$world"
+
+  # $spawn = The name of the absent spawn.
+  absent: "Spawn &6$spawn&7 doesn't exist!"
+
+vanish:
+  enable: "You have been vanished"
+  disable: "You have been unvanished"
+
+god:
+  enable: "God mode has been enabled"
+  disable: "God mode has been disabled"
+
+region:
+  flag:
+    no-chat: "You are not allowed to talk here"
+    no-command: "Entering this command is forbidden here"
+
+##########################################################
+# +----------------------------------------------------+ #
+# |      End of configuration file "messages.yml"      | #
+# +----------------------------------------------------+ #
+##########################################################
