@@ -6,6 +6,7 @@
 
 package com.maulss.core.bukkit.world.schematic;
 import com.maulss.core.bukkit.Core;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.collect.EnhancedList;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.Validate;
@@ -53,9 +54,9 @@ public final class Schematics {
             instance = null;
 
             if (autoLoad) {
-                Core.get().log("Caught %s while autoloading schematics", exception.getClass().getName());
+                CoreLogger.log("Caught %s while autoloading schematics", exception.getClass().getName());
                 exception.printStackTrace();
-                Core.get().log("Will retry to init with autoload disabled...");
+                CoreLogger.log("Will retry to init with autoload disabled...");
                 // retry without auto loading
                 ok = init(false);
             } else {

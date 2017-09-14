@@ -27,6 +27,8 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import static com.maulss.core.bukkit.CoreLogger.*;
+
 /**
  * An abstract version of expanded {@link Profile}.
  *
@@ -82,8 +84,6 @@ public abstract class CoreProfile
             everPlayed      = false;
     protected transient StatisticHolder
             statisticHolder = this;
-    protected transient Logger
-            logger          = Core.get().logger();
 
     // ================================ //
     // ==== Construction ============== //
@@ -139,12 +139,12 @@ public abstract class CoreProfile
         this.name = name.orElse(null);
 
         if (!uuid.isPresent() && !name.isPresent()) {
-            logger.debug("Created a fake player but both ID and name are null");
+            debug("Created a fake player but both ID and name are null");
             return;
         }
 
         // Record how long it takes to load the profile
-        timer.start().onFinishExecute(() -> logger.debug(
+        timer.start().onFinishExecute(() -> debug(
                 "Generated %s profile '%s' with ID '%s' in %sms",
                 CoreProfile.this.getClass().getSimpleName(),
                 this.name,
@@ -169,7 +169,7 @@ public abstract class CoreProfile
                         .find(Filters.eq(data.getKey(), value))
                         .first((document, throwable) -> {
 
-                            logger.logIf(
+                            logIf(
                                     throwable != null,
                                     "Error loading '%s' ('%s'): %s",
                                     this.name,
@@ -240,7 +240,7 @@ public abstract class CoreProfile
     protected final void refreshStats() {
         // Async download custom stats from database
         retrieve((result, t) -> {
-            logger.logIf(t != null, "Error loading '%s' ('%s'): %s", name, uuid, t);
+            logIf(t != null, "Error loading '%s' ('%s'): %s", name, uuid, t);
             everPlayed = true;
             finishLoading(Optional.ofNullable(result));
         });
@@ -392,7 +392,7 @@ public abstract class CoreProfile
 
     @Override
     public Logger getLogger() {
-        return logger;
+        return get();
     }
 
     @Override

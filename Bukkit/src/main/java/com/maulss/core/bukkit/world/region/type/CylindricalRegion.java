@@ -9,6 +9,7 @@ package com.maulss.core.bukkit.world.region.type;
 import com.google.common.annotations.Beta;
 import com.google.common.collect.ImmutableList;
 import com.maulss.core.bukkit.Core;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.bukkit.world.region.Region;
 import com.maulss.core.bukkit.world.region.RegionBoundsException;
 import com.maulss.core.bukkit.world.region.Regions;
@@ -69,7 +70,7 @@ public class CylindricalRegion extends Region {
                 base.getZ() + radius
         );
 
-        Core.get().debug("CYLINDER: Measured volume: %s; Calculated volume: %s", points.size(), volume);
+        CoreLogger.debug("CYLINDER: Measured volume: %s; Calculated volume: %s", points.size(), volume);
     }
 
     public Vector3D getBase() {

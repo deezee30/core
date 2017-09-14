@@ -69,10 +69,10 @@ public final class Core extends CorePlugin {
 
             settings.initClasses(
                     // Load configuration and language files
-                    "com.riddlesvillage.core.internal.config.MessagesConfig",
-                    "com.riddlesvillage.core.internal.config.MainConfig",
-                    "com.riddlesvillage.core.internal.config.SpawnsConfig",
-                    "com.riddlesvillage.core.internal.config.DatabaseConfig"
+                    "com.maulss.core.bukkit.internal.config.MessagesConfig",
+                    "com.maulss.core.bukkit.internal.config.MainConfig",
+                    "com.maulss.core.bukkit.internal.config.SpawnsConfig",
+                    "com.maulss.core.bukkit.internal.config.DatabaseConfig"
             );
 
             // Set up default language for players
@@ -82,7 +82,7 @@ public final class Core extends CorePlugin {
             settings.registerListeners(this, PlayerListeners.get());
             settings.registerListeners(this, CoreWorldManager.getInstance());
 
-            // Register default RiddlesCore commands
+            // Register default Core commands
             settings.registerCommands(this, new ImmutableMap.Builder<String, CommandExecutor>()
                     .put("addspawn",    new AddSpawnCommand())
                     .put("clearchat",   new ClearChatCommand())
@@ -136,7 +136,7 @@ public final class Core extends CorePlugin {
                 // Finish up loading
 
                 // TODO: Store player collections as their player codecs instead of Documents
-                // TODO: mainPlayerColl = internalDb.getCollection("players", CoreOfflinePlayer.class);
+                // TODO: mainPlayerColl = internalDb.getCollection("players", CorePlayer.class);
                 mainPlayerColl = internalDb.getCollection("players");
             });
 

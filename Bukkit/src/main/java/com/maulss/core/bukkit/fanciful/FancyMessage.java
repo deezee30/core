@@ -2,11 +2,10 @@ package com.maulss.core.bukkit.fanciful;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
-import com.maulss.core.Logger;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.bukkit.player.CorePlayer;
-import com.maulss.core.util.ArrayWrapper;
-import com.maulss.core.bukkit.Core;
 import com.maulss.core.bukkit.util.MinecraftReflection;
+import com.maulss.core.util.ArrayWrapper;
 import com.maulss.core.util.Reflection;
 import org.bukkit.Achievement;
 import org.bukkit.ChatColor;
@@ -28,14 +27,17 @@ import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
- * Represents a formattable message. Such messages can use elements such as colors, formatting codes, hover and click data, and other features provided by the vanilla Minecraft <a href="http://minecraft.gamepedia.com/Tellraw#Raw_JSON_Text">JSON message formatter</a>.
- * This class allows plugins to emulate the functionality of the vanilla Minecraft <a href="http://minecraft.gamepedia.com/Commands#tellraw">tellraw command</a>.
- * <p>
- * This class follows the builder pattern, allowing for method chaining.
- * It is set up such that invocations of property-setting methods will affect the current editing component,
- * and a call to {@link #then()} or {@link #then(String)} will append a new editing component to the end of the message,
- * optionally initializing it with text. Further property-setting method calls will affect that editing component.
- * </p>
+ * Represents a formattable message. Such messages can use elements such as
+ * colors, formatting codes, hover and click data, and other features provided
+ * by the vanilla Minecraft <a href="http://minecraft.gamepedia.com/Tellraw#Raw_JSON_Text">JSON
+ * message formatter</a>. This class allows plugins to emulate the functionality
+ * of the vanilla Minecraft <a href="http://minecraft.gamepedia.com/Commands#tellraw">tellraw
+ * command</a>. <p> This class follows the builder pattern, allowing for method
+ * chaining. It is set up such that invocations of property-setting methods will
+ * affect the current editing component, and a call to {@link #then()} or {@link
+ * #then(String)} will append a new editing component to the end of the message,
+ * optionally initializing it with text. Further property-setting method calls
+ * will affect that editing component. </p>
  */
 public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<MessagePart>, ConfigurationSerializable {
 
@@ -48,7 +50,6 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
     private boolean dirty;
 
     private static Constructor<?> nmsPacketPlayOutChatConstructor;
-    static final Logger logger = Core.get().logger();
 
     @Override
     public FancyMessage clone() throws CloneNotSupportedException {
@@ -82,9 +83,9 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
                 nmsPacketPlayOutChatConstructor = MinecraftReflection.getNMSClass("PacketPlayOutChat").getDeclaredConstructor(MinecraftReflection.getNMSClass("IChatBaseComponent"));
                 nmsPacketPlayOutChatConstructor.setAccessible(true);
             } catch (NoSuchMethodException e) {
-                logger.log("Could not find Minecraft method or constructor: %s", e);
+                CoreLogger.log("Could not find Minecraft method or constructor: %s", e);
             } catch (SecurityException e) {
-                logger.log("Could not access constructor: %s", e);
+                CoreLogger.log("Could not access constructor: %s", e);
             }
         }
     }
@@ -240,13 +241,13 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
             Object achievement = Reflection.getMethod(MinecraftReflection.getOBCClass("CraftStatistic"), "getNMSAchievement", Achievement.class).invoke(null, which);
             return achievementTooltip((String) Reflection.getField(MinecraftReflection.getNMSClass("Achievement"), "name").get(achievement));
         } catch (IllegalAccessException e) {
-            logger.log("Could not access method: %s", e);
+            CoreLogger.log("Could not access method: %s", e);
             return this;
         } catch (IllegalArgumentException e) {
-            logger.log("Argument could not be passed: %s", e);
+            CoreLogger.log("Argument could not be passed: %s", e);
             return this;
         } catch (InvocationTargetException e) {
-            logger.log("A error has occurred during invoking of method: %s", e);
+            CoreLogger.log("A error has occurred during invoking of method: %s", e);
             return this;
         }
     }
@@ -269,13 +270,13 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
             Object statistic = Reflection.getMethod(MinecraftReflection.getOBCClass("CraftStatistic"), "getNMSStatistic", Statistic.class).invoke(null, which);
             return achievementTooltip((String) Reflection.getField(MinecraftReflection.getNMSClass("Statistic"), "name").get(statistic));
         } catch (IllegalAccessException e) {
-            logger.log("Could not access method: %s", e);
+            CoreLogger.log("Could not access method: %s", e);
             return this;
         } catch (IllegalArgumentException e) {
-            logger.log("Argument could not be passed: %s", e);
+            CoreLogger.log("Argument could not be passed: %s", e);
             return this;
         } catch (InvocationTargetException e) {
-            logger.log("A error has occured durring invoking of method: %s", e);
+            CoreLogger.log("A error has occured durring invoking of method: %s", e);
             return this;
         }
     }
@@ -302,13 +303,13 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
             Object statistic = Reflection.getMethod(MinecraftReflection.getOBCClass("CraftStatistic"), "getMaterialStatistic", Statistic.class, Material.class).invoke(null, which, item);
             return achievementTooltip((String) Reflection.getField(MinecraftReflection.getNMSClass("Statistic"), "name").get(statistic));
         } catch (IllegalAccessException e) {
-            logger.log("Could not access method: %s", e);
+            CoreLogger.log("Could not access method: %s", e);
             return this;
         } catch (IllegalArgumentException e) {
-            logger.log("Argument could not be passed: %s", e);
+            CoreLogger.log("Argument could not be passed: %s", e);
             return this;
         } catch (InvocationTargetException e) {
-            logger.log("A error has occured durring invoking of method: %s", e);
+            CoreLogger.log("A error has occured durring invoking of method: %s", e);
             return this;
         }
     }
@@ -335,13 +336,13 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
             Object statistic = Reflection.getMethod(MinecraftReflection.getOBCClass("CraftStatistic"), "getEntityStatistic", Statistic.class, EntityType.class).invoke(null, which, entity);
             return achievementTooltip((String) Reflection.getField(MinecraftReflection.getNMSClass("Statistic"), "name").get(statistic));
         } catch (IllegalAccessException e) {
-            logger.log("Could not access method: %s", e);
+            CoreLogger.log("Could not access method: %s", e);
             return this;
         } catch (IllegalArgumentException e) {
-            logger.log("Argument could not be passed: %s", e);
+            CoreLogger.log("Argument could not be passed: %s", e);
             return this;
         } catch (InvocationTargetException e) {
-            logger.log("A error has occured durring invoking of method: %s", e);
+            CoreLogger.log("A error has occured durring invoking of method: %s", e);
             return this;
         }
     }
@@ -476,7 +477,7 @@ public class FancyMessage implements JsonRepresentedObject, Cloneable, Iterable<
                     result.messageParts.add(new MessagePart(TextualComponent.rawText("\n")));
                 }
             } catch (CloneNotSupportedException e) {
-                logger.log("Failed to clone object", e);
+                CoreLogger.log("Failed to clone object", e);
                 return this;
             }
         }

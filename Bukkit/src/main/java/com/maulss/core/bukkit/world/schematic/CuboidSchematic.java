@@ -7,6 +7,7 @@
 package com.maulss.core.bukkit.world.schematic;
 
 import com.maulss.core.bukkit.Core;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.bukkit.world.Position;
 import com.maulss.core.math.Vector3D;
 import com.maulss.core.bukkit.world.schematic.codec.SchematicCodecException;
@@ -27,7 +28,7 @@ public class CuboidSchematic extends AbstractSchematic {
                            final SchematicData data) {
         super(name, type);
         this.data = Validate.notNull(data);
-        Core.get().debug("Generated schematic " + getFullName());
+        CoreLogger.debug("Generated schematic " + getFullName());
     }
 
     public CuboidSchematic(final File file) throws FileNotFoundException, SchematicCodecException {
@@ -35,7 +36,7 @@ public class CuboidSchematic extends AbstractSchematic {
         data = SchematicCodecFactory.getFactory()
                 .getCodec(type)
                 .decode(file);
-        Core.get().debug("Loaded schematic " + getFullName());
+        CoreLogger.debug("Loaded schematic " + getFullName());
     }
 
     public CuboidSchematic(final String name) throws FileNotFoundException, SchematicCodecException {
@@ -77,7 +78,7 @@ public class CuboidSchematic extends AbstractSchematic {
             }
         }
 
-        Core.get().debug("Pasted %s @ %s", getFullName(), new Position(baseLocation));
+        CoreLogger.debug("Pasted %s @ %s", getFullName(), new Position(baseLocation));
 
         return true;
     }

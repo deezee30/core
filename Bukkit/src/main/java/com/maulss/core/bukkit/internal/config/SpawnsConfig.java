@@ -5,6 +5,7 @@
 package com.maulss.core.bukkit.internal.config;
 
 import com.maulss.core.bukkit.Core;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.collect.EnhancedList;
 import com.maulss.core.collect.EnhancedMap;
 import com.maulss.core.text.StringUtil;
@@ -41,7 +42,7 @@ public final class SpawnsConfig extends CoreConfigFile {
                 World world = Bukkit.getWorld(worldName);
 
                 if (world == null) {
-                    Core.get().log("Spawn '%s' wasn't loaded -- World '%s' doesn't exist", name, worldName);
+                    CoreLogger.log("Spawn '%s' wasn't loaded -- World '%s' doesn't exist", name, worldName);
                     continue;
                 }
 
@@ -56,7 +57,7 @@ public final class SpawnsConfig extends CoreConfigFile {
             }
 
             int count = spawns.size();
-            Core.get().logIf(
+            CoreLogger.logIf(
                     count > 0,
                     "Loaded &e%s spawn%s&r: &e%s",
                     count,

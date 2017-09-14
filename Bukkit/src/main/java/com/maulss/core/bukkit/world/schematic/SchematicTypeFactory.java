@@ -36,7 +36,7 @@ public final class SchematicTypeFactory {
             case "schematic":
                 return SchematicType.MINECRAFT;
             case "sch":
-                return SchematicType.RIDDLESVILLAGE;
+                return SchematicType.CORE;
         }
 
         throw new IllegalArgumentException("Extension "

@@ -8,6 +8,7 @@ package com.maulss.core.bukkit.world.region.type;
 
 import com.google.common.collect.ImmutableList;
 import com.maulss.core.bukkit.Core;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.bukkit.world.region.Region;
 import com.maulss.core.bukkit.world.region.RegionBoundsException;
 import com.maulss.core.bukkit.world.region.Regions;
@@ -64,7 +65,7 @@ public class CuboidRegion extends Region {
         width   = MathUtil.floor(getMaxZ() - getMinZ() + 1);
         volume  = width * height * length;
 
-        Core.get().debug("CUBOID: Measured volume: %s; Calculated volume: %s", points.size(), volume);
+        CoreLogger.debug("CUBOID: Measured volume: %s; Calculated volume: %s", points.size(), volume);
     }
 
     @Override

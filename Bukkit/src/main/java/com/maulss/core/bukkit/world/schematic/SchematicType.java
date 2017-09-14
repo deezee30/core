@@ -11,7 +11,7 @@ public enum SchematicType {
     MCEDIT("MCEDIT", "schematic"),
     WORLDEDIT("MCEDIT", "schematic"),
     MINECRAFT("MCEDIT", "schematic"),
-    RIDDLESVILLAGE("RIDDLESVILLAGE", "sch");
+    CORE("CORE", "sch");
 
     private final String type, extension;
 

@@ -12,6 +12,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.maulss.core.bukkit.Core;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.net.paster.PasteException;
 import com.maulss.core.net.paster.Paster;
 import org.apache.commons.lang3.Validate;
@@ -47,9 +48,9 @@ public final class ChatMessages {
 
         try {
             URL paste = Paster.hastebin(gson.toJson(jsonObject)).paste();
-            Core.get().log("Saved chat messages to %s", paste.toString());
+            CoreLogger.log("Saved chat messages to %s", paste.toString());
         } catch (PasteException e) {
-            Core.get().log("Could not paste saved chat messages: " + e);
+            CoreLogger.log("Could not paste saved chat messages: " + e);
         }
     }
 

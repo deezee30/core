@@ -8,6 +8,7 @@ package com.maulss.core.bukkit.chat.filter;
 
 import com.google.common.collect.ImmutableList;
 import com.maulss.core.bukkit.Core;
+import com.maulss.core.bukkit.CoreLogger;
 import com.maulss.core.collect.EnhancedList;
 import org.apache.commons.lang3.Validate;
 
@@ -39,7 +40,7 @@ public final class ChatFilters implements Iterable<ChatBlockFilter> {
     public void addFilter(final ChatBlockFilter filter) {
         Validate.notNull(filter);
 
-        Core.get().debug("Adding chat filter: " + filter.getClass().getSimpleName());
+        CoreLogger.debug("Adding chat filter: " + filter.getClass().getSimpleName());
         filters.add(filter);
     }
 

@@ -26,7 +26,7 @@ public final class SchematicCodecFactory {
             case WORLDEDIT:
             case MINECRAFT:
                 return NBT_CODEC;
-            case RIDDLESVILLAGE:
+            case CORE:
                 return CORE_CODEC;
         }
 

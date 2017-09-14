@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static com.maulss.core.bukkit.CoreLogger.*;
+
 public final class RegionManager {
 
     static final RegionManager INSTANCE = new RegionManager();
@@ -41,7 +43,7 @@ public final class RegionManager {
 
         regions.add(region);
 
-        Core.get().debug(
+        debug(
                 "Registered %s region #%s: %s",
                 region.getType(),
                 regions.indexOf(region),
@@ -102,7 +104,7 @@ public final class RegionManager {
 
         // perform IO saves async
         Bukkit.getScheduler().runTaskAsynchronously(Core.get(), () -> {
-            if (!Core.get().debugIf(
+            if (!debugIf(
                     !file.exists(),
                     "Did not save %s regions, file doesn't exist!",
                     regions.size())) {
@@ -113,7 +115,7 @@ public final class RegionManager {
                     oops.set(e);
                 }
 
-                Core.get().debug(
+                debug(
                         "Saved %s %s",
                         regions.size(),
                         StringUtil.checkPlural("region", "regions", regions.size())
@@ -149,7 +151,7 @@ public final class RegionManager {
 
         // if it doesn't exist, try create it and log
         try {
-            Core.get().logIf(
+            logIf(
                     !file.exists() && file.createNewFile(),
                     "Created new file '%s'",
                     REGION_FILE

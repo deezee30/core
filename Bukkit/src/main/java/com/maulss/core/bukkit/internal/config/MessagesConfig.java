@@ -19,7 +19,7 @@ public final class MessagesConfig {
     static {
         SETTINGS.findAndRegisterLocales(PLUGIN_INSTANCE);
 
-        Logger logger = Core.get().logger();
+        Logger logger = PLUGIN_INSTANCE.logger();
         logger.setDebugPrefix("Core [Debug] -> ");
         logger.setNoPrefixChar((char) 126);
         logger.setPrefix(

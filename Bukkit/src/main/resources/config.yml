@@ -1,20 +1,20 @@
 ##########################################################
 # +----------------------------------------------------+ #
 # |                                                    | #
-# |            Part of core.for RiddlesVillage          | #
+# |                      - Core -                      | #
 # |                                                    | #
 # +----------------------------------------------------+ #
 # | Version . . . . . . . . . . . . . . . . . . .  0.1 | #
 # | Java  . . . . . . . . . . . . . . . . . . . . .  8 | #
 # | JDK . . . . . . . . . . . . . . . . . . . . .  1.8 | #
 # | Line Endings  . . . . . . . . . . . . . . . . Unix | #
-# | Compiler  . . . . . . . . . . . . . . . .  Maven 3 | #
+# | Compiler  . . . . . . . . . . . . . . . . Gradle 4 | #
 # +----------------------------------------------------+ #
-# | An engine built for RiddlesVillage used to provide | #
-# | stabilized support for various simple and          | #
+# | An engine built for Minecraft servers, used to     | #
+# | provide stabilized support for various simple and  | #
 # | difficult tasks.  Efficiency, compatibility and    | #
 # | speed are the three priorities used when working   | #
-# | with Riddles plugins.                              | #
+# | with sub plugins.                                  | #
 # +----------------------------------------------------+ #
 ##########################################################
 

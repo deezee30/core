@@ -32,10 +32,6 @@ subprojects {
         jcenter()
     }
 
-    clean {
-        delete file("../target")
-    }
-
     ext {
         SLF4J_VERSION = "1.7.10"
         JUNIT_VERSION = "4.11"

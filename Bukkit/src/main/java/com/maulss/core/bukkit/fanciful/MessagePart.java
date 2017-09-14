@@ -3,6 +3,7 @@ package com.maulss.core.bukkit.fanciful;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.ImmutableBiMap;
 import com.google.gson.stream.JsonWriter;
+import com.maulss.core.bukkit.CoreLogger;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -81,7 +82,7 @@ final class MessagePart implements JsonRepresentedObject, ConfigurationSerializa
             }
             json.endObject();
         } catch(IOException e){
-            FancyMessage.logger.log("A problem occured during writing of JSON string: " + e.getMessage());
+            CoreLogger.log("A problem occured during writing of JSON string: " + e.getMessage());
         }
     }
 
