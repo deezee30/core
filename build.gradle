@@ -41,10 +41,10 @@ subprojects {
         compile "org.slf4j:slf4j-api:${SLF4J_VERSION}"
         compile "org.slf4j:slf4j-log4j12:${SLF4J_VERSION}"
 
-        compile "commons-io:commons-io:1.3.2"
-        compile "org.apache.commons:commons-lang3:3.5"
-        compile "com.google.guava:guava:23.0"
-        compile "com.google.code.gson:gson:2.8.1"
+        compile "commons-io:commons-io:+"
+        compile "org.apache.commons:commons-lang3:+"
+        compile "com.google.guava:guava:+"
+        compile "com.google.code.gson:gson:+"
 
         testCompile "junit:junit:${JUNIT_VERSION}"
     }
