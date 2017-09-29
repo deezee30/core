@@ -62,7 +62,6 @@ public interface HologramViewer {
             return this == o
                     || !(o == null || getClass() != o.getClass())
                     && uuid.equals(((Impl) o).uuid);
-
         }
 
         @Override

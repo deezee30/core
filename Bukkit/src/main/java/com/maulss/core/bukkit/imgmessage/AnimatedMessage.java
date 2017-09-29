@@ -16,7 +16,18 @@ public class AnimatedMessage {
     private int index = 0;
 
     public AnimatedMessage(final ImageMessage... images) {
-        this.images = Validate.notNull(images);
+        this.images = Validate.notNull(images, "images");
+    }
+
+    public AnimatedMessage(final File gifFile,
+                           final int height) throws IOException {
+        this(gifFile, height, ImageChar.BLOCK);
+    }
+
+    public AnimatedMessage(final File gifFile,
+                           final int height,
+                           final ImageChar imgChar) throws IOException {
+        this(gifFile, height, imgChar.getChar());
     }
 
     public AnimatedMessage(final File gifFile,
@@ -29,7 +40,7 @@ public class AnimatedMessage {
     }
 
     public List<BufferedImage> getFrames(final File input) {
-        Validate.notNull(input);
+        Validate.notNull(input, "input");
         List<BufferedImage> images = new ArrayList<>();
         try {
             ImageReader reader = ImageIO.getImageReadersBySuffix("GIF").next();

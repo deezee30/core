@@ -1,6 +1,6 @@
 package com.maulss.core.bukkit.imgmessage;
 
-import com.maulss.core.bukkit.player.CorePlayer;
+import com.maulss.core.util.ArrayWrapper;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.util.ChatPaginator;
@@ -9,34 +9,55 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.function.Consumer;
 
 public final class ImageMessage {
 
     private final static char TRANSPARENT_CHAR = ' ';
     private final Color[] colors = {
             new Color(0, 0, 0),		new Color(0, 0, 170),		new Color(0, 170, 0),		new Color(0, 170, 170),
-            new Color(170, 0, 0),	new Color(170, 0, 170),		new Color(255, 170, 0),		new Color(170, 170, 170),
-            new Color(85, 85, 85),	new Color(85, 85, 255),		new Color(85, 255, 85),		new Color(85, 255, 255),
+            new Color(170, 0, 0),	    new Color(170, 0, 170),	new Color(255, 170, 0),		new Color(170, 170, 170),
+            new Color(85, 85, 85),	    new Color(85, 85, 255),	new Color(85, 255, 85),		new Color(85, 255, 255),
             new Color(255, 85, 85),	new Color(255, 85, 255),	new Color(255, 255, 85),	new Color(255, 255, 255),};
     private String[] lines;
 
     public ImageMessage(final BufferedImage image,
+                        final int height) {
+        this(image, height, ImageChar.BLOCK);
+    }
+
+    public ImageMessage(final BufferedImage image,
+                        final int height,
+                        final ImageChar imgChar) {
+        this(image, height, imgChar.getChar());
+    }
+
+    public ImageMessage(final BufferedImage image,
                         final int height,
                         final char imgChar) {
-        Validate.notNull(image);
+        Validate.notNull(image, "image");
 
         ChatColor[][] chatColors = toChatColorArray(image, height);
         lines = toImgMessage(chatColors, imgChar);
     }
 
-    public ImageMessage(final ChatColor[][] chatColors, char imgChar) {
-        Validate.notNull(chatColors);
-        Validate.notNull(imgChar);
+    public ImageMessage(final ChatColor[][] chatColors) {
+        this(chatColors, ImageChar.BLOCK);
+    }
+
+    public ImageMessage(final ChatColor[][] chatColors,
+                        final ImageChar imgChar) {
+        this(chatColors, imgChar.getChar());
+    }
+
+    public ImageMessage(final ChatColor[][] chatColors,
+                        final char imgChar) {
+        Validate.notNull(chatColors, "chatColors");
         lines = toImgMessage(chatColors, imgChar);
     }
 
     public ImageMessage(final String... imgLines) {
-        lines = Validate.noNullElements(imgLines);
+        lines = Validate.noNullElements(imgLines, "imgLines");
     }
 
     public ImageMessage appendText(final String... text) {
@@ -48,7 +69,7 @@ public final class ImageMessage {
     }
 
     public ImageMessage appendCenteredText(final String... text) {
-        Validate.noNullElements(text);
+        Validate.noNullElements(text, "text");
         for (int y = 0; y < lines.length; y++) {
             if (text.length > y)
                 lines[y] = lines[y] + center(text[y], ChatPaginator.AVERAGE_CHAT_PAGE_WIDTH - lines[y].length());
@@ -159,8 +180,7 @@ public final class ImageMessage {
         return lines;
     }
 
-    public void sendToPlayer(final CorePlayer player) {
-        for (String line : lines)
-            player.sendMessage(line);
+    public void apply(Consumer<ArrayWrapper<String>> function) {
+        function.accept(new ArrayWrapper<>(lines));
     }
 }

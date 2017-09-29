@@ -2,10 +2,10 @@ package com.maulss.core.bukkit.imgmessage;
 
 public enum ImageChar {
 
-    BLOCK('\u2588'),
-    DARK_SHADE('\u2593'),
+    BLOCK       ('\u2588'),
+    DARK_SHADE  ('\u2593'),
     MEDIUM_SHADE('\u2592'),
-    LIGHT_SHADE('\u2591');
+    LIGHT_SHADE ('\u2591');
 
     private char c;
 
