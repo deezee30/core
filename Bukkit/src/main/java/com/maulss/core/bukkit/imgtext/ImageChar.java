@@ -1,4 +1,4 @@
-package com.maulss.core.bukkit.imgmessage;
+package com.maulss.core.bukkit.imgtext;
 
 public enum ImageChar {
 
