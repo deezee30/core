@@ -1,15 +1,3 @@
-buildscript {
-    ext {
-        depManagementVersion = "0.5.1.RELEASE"
-    }
-
-    repositories {
-        mavenLocal()
-        mavenCentral()
-        jcenter()
-    }
-}
-
 allprojects {
     group "com.maulss"
     version "1.0.0"
@@ -27,8 +15,6 @@ subprojects {
     targetCompatibility = 1.8
 
     repositories {
-        mavenLocal()
-        mavenCentral()
         jcenter()
     }
 

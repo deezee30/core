@@ -10,8 +10,6 @@ repositories {
 }
 
 dependencies {
-    compile project(":core-base")
-
     // Spigot API
     compile("org.spigotmc:spigot-api:1.12-R0.1-SNAPSHOT") {
         exclude group: "commons-lang"
@@ -22,4 +20,7 @@ dependencies {
 
     // ProtocolLib
     compile "com.comphenix.protocol:ProtocolLib-API:4.2.1"
+
+    // Core
+    compile project(":Core")
 }
