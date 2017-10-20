@@ -141,7 +141,7 @@ public final class CoreSettings {
         InputStream resource = plugin.getResource("locale/" + defaultLocale + ".yml");
         File localeDir = new File(String.format(
                 "%s%slocale",
-                plugin.getDataFolder().getParent(),
+                plugin.getDataFolder(),
                 File.separator
         ));
 
