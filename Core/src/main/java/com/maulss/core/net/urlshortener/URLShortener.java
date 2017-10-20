@@ -52,7 +52,7 @@ public abstract class URLShortener extends TimedCallableTask<URL> {
             throw new URLShortenerException(e);
         } catch (TimeoutException e) {
             throw new URLShortenerException("The request timed out after "
-                    + timeout + unit.toString().toLowerCase());
+                    + timeout + " " + unit.toString().toLowerCase());
         }
     }
 

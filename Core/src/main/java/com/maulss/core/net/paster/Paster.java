@@ -41,7 +41,7 @@ public abstract class Paster extends TimedCallableTask<URL> {
             throw new PasteException(e);
         } catch (TimeoutException e) {
             throw new PasteException("The request timed out after "
-                    + timeout + unit.toString().toLowerCase());
+                    + timeout + " "+ unit.toString().toLowerCase());
         }
     }
 
