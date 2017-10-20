@@ -93,7 +93,7 @@ public final class Credentials {
                 .append("port", port)
                 .append("database", database)
                 .append("user", user)
-                .append("pass", pass)
+                .append("pass", "[HIDDEN]")
                 .toString();
     }
 
