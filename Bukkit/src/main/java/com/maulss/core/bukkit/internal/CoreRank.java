@@ -15,14 +15,14 @@ import java.util.List;
 
 public final class CoreRank implements Rank {
 
+    private static List<CoreRank> RANKS = new ArrayList<>(5);
+
     public static final CoreRank
             DEFAULT = new CoreRank(0,       "Member",   ChatColor.GRAY),
             HELPER  = new CoreRank(4,       "Helper",   ChatColor.AQUA),
             MOD     = new CoreRank(5,       "Mod",      ChatColor.GREEN),
             DEV     = new CoreRank(10,      "Dev",      ChatColor.DARK_GREEN),
             ADMIN   = new CoreRank(9999,    "Admin",    ChatColor.BLUE);
-
-    private static List<CoreRank> RANKS = new ArrayList<>(6);
 
     static {
         RANKS = ImmutableList.copyOf(RANKS);
