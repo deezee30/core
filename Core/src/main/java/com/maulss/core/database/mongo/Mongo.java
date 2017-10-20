@@ -20,6 +20,7 @@ import com.mongodb.async.client.MongoCollection;
 import com.mongodb.connection.ClusterConnectionMode;
 import com.mongodb.connection.ClusterSettings;
 import com.mongodb.connection.ServerSettings;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.bson.Document;
 import org.bson.codecs.Codec;
 import org.bson.codecs.configuration.CodecRegistries;
@@ -233,6 +234,7 @@ public final class Mongo implements Database {
                         .build()
                 ).serverSettings(ServerSettings.builder()
                         .addServerListener(listener)
+                        .addServerMonitorListener(listener)
                         .build()
                 ).credentialList(Collections.singletonList(MongoCredential.createCredential(
                         credentials.getUser(),
@@ -281,6 +283,16 @@ public final class Mongo implements Database {
     @Override
     public Logger getLogger() {
         return logger;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("credentials", credentials)
+                .append("codecRegistry", codecRegistry)
+                .append("description", description)
+                .append("init", init)
+                .toString();
     }
 
     /**
