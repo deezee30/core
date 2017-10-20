@@ -11,6 +11,7 @@ import com.maulss.core.bukkit.player.CorePlayer;
 import com.maulss.core.bukkit.player.manager.CorePlayerManager;
 import com.maulss.core.service.timer.Timer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -37,7 +38,16 @@ public abstract class CorePlugin extends JavaPlugin {
     public final void onEnable() {
         timer.start();
         findAndRegisterLocales();
-        enable();
+
+        try {
+            enable();
+        } catch (Exception exception) {
+            log("~&4Uncaught exception while enabling %s! Turning off...", this);
+            exception.printStackTrace();
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+
         timer.forceStop();
         logger.log("Loaded %s in %sms", getName(), timer.getTime(TimeUnit.MILLISECONDS));
     }
@@ -91,7 +101,7 @@ public abstract class CorePlugin extends JavaPlugin {
 
     public final Optional<String> log(final String path,
                                       final Object... components) {
-        return logger.log(settings.get(path), components);
+        return logger.log(parseColors(settings.get(path)), components);
     }
 
     public final Optional<String> log(final String path,
@@ -108,7 +118,7 @@ public abstract class CorePlugin extends JavaPlugin {
     public final boolean logIf(final boolean check,
                                final String path,
                                final Object... components) {
-        return logger.logIf(check, settings.get(path), components);
+        return logger.logIf(check, parseColors(settings.get(path)), components);
     }
 
     public final boolean logIf(final boolean check,
@@ -126,13 +136,13 @@ public abstract class CorePlugin extends JavaPlugin {
 
     public final Optional<String> debug(final String string,
                                         final Object... components) {
-        return logger.debug(string, components);
+        return logger.debug(parseColors(string), components);
     }
 
     public final boolean debugIf(final boolean check,
                                  final String string,
                                  final Object... components) {
-        return logger.debugIf(check, string, components);
+        return logger.debugIf(check, parseColors(string), components);
     }
 
     public final void broadcast(final String message,
@@ -153,5 +163,9 @@ public abstract class CorePlugin extends JavaPlugin {
     public final void broadcast(final String path,
                                 final Map<String, Object> replacements) {
         broadcast(Logger.constructReplacements(settings.get(path), replacements));
+    }
+
+    private String parseColors(final String text) {
+        return ChatColor.translateAlternateColorCodes('&', text);
     }
 }
