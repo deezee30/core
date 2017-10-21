@@ -18,7 +18,7 @@ public final class Holograms {
     private Holograms() {}
 
     public Hologram add(final Hologram hologram) {
-        Validate.notNull(hologram);
+        Validate.notNull(hologram, "hologram");
         holograms.add(hologram);
         return hologram;
     }

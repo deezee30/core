@@ -6,46 +6,24 @@
 
 package com.maulss.core.bukkit.hologram.line;
 
-import com.maulss.core.bukkit.Core;
-import com.maulss.core.bukkit.CorePlugin;
 import com.maulss.core.text.Scroller;
 import com.maulss.core.text.SimpleScroller;
-import org.apache.commons.lang3.Validate;
-import org.bukkit.Bukkit;
 
-public class ScrollingLine extends HologramLine {
+public class ScrollingLine extends UpdatingTextualLine {
 
     private final Scroller scroller;
-    private String text;
 
-    public ScrollingLine(String text,
-                         int maxWidth,
-                         int spaceBetween,
-                         int scrollSpeedTicks) {
-        this.text = text;
+    public ScrollingLine(final String text,
+                         final int maxWidth,
+                         final int spaceBetween,
+                         final int scrollSpeedTicks) {
+        super(text, scrollSpeedTicks);
+        // TODO: Use a color-code supported scroller instead of a simple scroller
         this.scroller = new SimpleScroller(text, maxWidth, spaceBetween);
-
-        if (scrollSpeedTicks > 0) {
-            Bukkit.getScheduler().runTaskTimer(
-                    Core.get(),
-                    this :: next,
-                    scrollSpeedTicks,
-                    scrollSpeedTicks
-            );
-        }
-    }
-
-    public void next() {
-        update(scroller.next());
     }
 
     @Override
-    public String getText() {
-        return text;
-    }
-
-    @Override
-    public void setText(final String text) {
-        this.text = Validate.notNull(text, "text");
+    public String onUpdate() {
+        return scroller.next();
     }
 }

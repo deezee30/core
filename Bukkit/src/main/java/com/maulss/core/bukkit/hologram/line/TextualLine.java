@@ -13,7 +13,7 @@ public class TextualLine extends HologramLine {
     private String text;
 
     public TextualLine(final String text) {
-        this.text = Validate.notNull(text);
+        setText(text);
     }
 
     @Override
@@ -23,6 +23,6 @@ public class TextualLine extends HologramLine {
 
     @Override
     public void setText(final String text) {
-        this.text = Validate.notNull(text);
+        this.text = Validate.notNull(text, "text");
     }
 }

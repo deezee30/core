@@ -10,6 +10,7 @@ import com.google.common.collect.ImmutableList;
 import com.maulss.core.bukkit.hologram.line.HologramLine;
 import com.maulss.core.bukkit.hologram.line.NullHologramLine;
 import com.maulss.core.bukkit.hologram.line.TextualLine;
+import com.maulss.core.bukkit.hologram.parser.HologramComponent;
 import com.maulss.core.bukkit.world.Position;
 import com.maulss.core.collect.EnhancedList;
 import com.maulss.core.math.Vector3D;
@@ -22,9 +23,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Entity;
 
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import static org.apache.commons.lang3.Validate.noNullElements;
 import static org.apache.commons.lang3.Validate.notNull;
@@ -35,13 +34,13 @@ public final class HologramBuilder implements Serializable {
 
     private String world;
     private Vector3D location;
-    private EnhancedList<HologramLine> lines;
+    private EnhancedList<HologramComponent> lines = new EnhancedList<>();
     private Optional<Entity> mount = Optional.empty();
     private Optional<EnhancedList<HologramViewer>> visibleFor = Optional.empty();
     private Optional<Double> radius = Optional.empty();
 
     public HologramBuilder in(final String world) {
-        notNull(world);
+        notNull(world, "world");
         in(Bukkit.getWorld(world));
         return this;
     }
@@ -52,12 +51,12 @@ public final class HologramBuilder implements Serializable {
     }
 
     public HologramBuilder at(final Vector3D location) {
-        this.location = notNull(location);
+        this.location = notNull(location, "location");
         return this;
     }
 
     public HologramBuilder at(final Location location) {
-        notNull(location);
+        notNull(location, "location");
         in(location.getWorld());
         return at(new Vector3D(
                 location.getX(),
@@ -67,24 +66,38 @@ public final class HologramBuilder implements Serializable {
     }
 
     public HologramBuilder at(final Position position) {
-        notNull(position);
+        notNull(position, "position");
         return at(position.toLocation());
     }
 
-    public HologramBuilder displaying(final Object... lines) {
-        HologramLine[] hLines = new HologramLine[lines.length];
-        for (int i = 0; i < lines.length; i++) {
-            Object line = lines[i];
-            if (line == null || line.toString().isEmpty()) {
-                hLines[i] = new NullHologramLine();
-            } else if (line instanceof HologramLine) {
-                hLines[i] = (HologramLine) line;
+    public HologramBuilder displaying(final Object... components) {
+        for (Object component : components) {
+            if (component == null || component.toString().isEmpty()) {
+                lines.add(new NullHologramLine());
+            } else if (component instanceof HologramComponent) {
+                lines.addAll(((HologramComponent) component).parse());
+            } else if (component instanceof Collection<?>) {
+                for (Object line : ((Collection<?>) component)) {
+                    lines.add(new TextualLine(line.toString()));
+                }
             } else {
-                hLines[i] = new TextualLine(line.toString());
+                lines.add(new TextualLine(component.toString()));
             }
         }
 
-        return displaying(hLines);
+        return this;
+    }
+
+    public HologramBuilder displaying(final HologramComponent... components) {
+        for (HologramComponent component : components) {
+            if (component == null) {
+                lines.add(new NullHologramLine());
+            } else {
+                lines.addAll(component.parse());
+            }
+        }
+
+        return this;
     }
 
     public HologramBuilder displaying(final HologramLine... lines) {
@@ -92,12 +105,12 @@ public final class HologramBuilder implements Serializable {
     }
 
     public HologramBuilder displaying(final Collection<HologramLine> lines) {
-        this.lines = new EnhancedList<>(noNullElements(lines));
+        this.lines.addAll(lines);
         return this;
     }
 
     public HologramBuilder mount(final Entity entity) {
-        this.mount = Optional.of(notNull(entity));
+        this.mount = Optional.of(notNull(entity, "entity"));
         return this;
     }
 
@@ -142,6 +155,8 @@ public final class HologramBuilder implements Serializable {
             throw new IllegalArgumentException("Both mounting and location have been provided");
         if (lines == null)
             throw new IllegalArgumentException("Lines haven't been set for hologram");
+
+        EnhancedList<HologramLine> lines = HologramComponent.parse(this.lines);
         for (HologramLine line : lines) {
             if (HologramLine.LINE_OPACITY_THRESHOLD * line.getOpacity() % 1 != 0) {
                 throw new IllegalArgumentException(
@@ -154,6 +169,7 @@ public final class HologramBuilder implements Serializable {
         }
 
         if (mount.isPresent()) {
+            // TODO
             throw new UnsupportedOperationException("Mounting not yet supported");
             // return new MountedHologram(new Position(world, location), radius, maxWidth, visibleFor);
         } else {

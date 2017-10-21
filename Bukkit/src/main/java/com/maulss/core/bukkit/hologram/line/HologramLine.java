@@ -12,6 +12,7 @@ import com.comphenix.protocol.wrappers.WrappedWatchableObject;
 import com.maulss.core.bukkit.Core;
 import com.maulss.core.bukkit.entity.EntityCreator;
 import com.maulss.core.bukkit.entity.SimpleEntityCreator;
+import com.maulss.core.bukkit.hologram.parser.HologramComponent;
 import com.maulss.core.bukkit.packet.wrapper.WrapperPlayServerEntityDestroy;
 import com.maulss.core.bukkit.packet.wrapper.WrapperPlayServerEntityMetadata;
 import com.maulss.core.bukkit.packet.wrapper.WrapperPlayServerSpawnEntityLiving;
@@ -28,12 +29,13 @@ import org.bukkit.entity.EntityType;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static com.comphenix.protocol.wrappers.WrappedDataWatcher.Registry.get;
 import static org.apache.commons.lang3.Validate.notNull;
 
-public abstract class HologramLine {
+public abstract class HologramLine implements HologramComponent {
 
     public static final int LINE_OPACITY_THRESHOLD = 20;
 
@@ -68,7 +70,7 @@ public abstract class HologramLine {
         // support for non-textual lines
         if (getText() == null) return null;
 
-        notNull(position);
+        notNull(position, "position");
 
         if (associatedEntity != null) associatedEntity.remove();
 
@@ -137,7 +139,7 @@ public abstract class HologramLine {
         }
 
         // check if player is allowed
-        if (players != null && !players.contains(player)) {
+        if (!players.contains(player)) {
             destroy(player);
             return false;
         }
@@ -212,6 +214,11 @@ public abstract class HologramLine {
                 player.sendPacket(packet);
             }
         }
+    }
+
+    @Override
+    public Collection<HologramLine> parse() {
+        return Collections.singletonList(this);
     }
 
     @Override
