@@ -77,7 +77,7 @@ public final class  CorePlayer
     private static final CoreSettings
             SETTINGS        = Core.getSettings();
     private static final MongoCollection<Document>
-            COLLECTION      = Core.getDatabase().getCollection("general");
+            COLLECTION      = Core.getPlayerCollection();
     private static final PluginManager
             PLUGIN_MANAGER  = CORE.getServer().getPluginManager();
 
