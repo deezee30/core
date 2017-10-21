@@ -39,7 +39,31 @@ public class AnimatedMessage {
             images[i] = new ImageText(frames.get(i), height, imgChar);
     }
 
-    public List<BufferedImage> getFrames(final File input) {
+    public ImageText current() {
+        return images[index];
+    }
+
+    public ImageText next() {
+        if (index == images.length)
+            index = 0;
+        return images[index++];
+    }
+
+    public ImageText previous() {
+        if (index == -1)
+            index = images.length - 1;
+        return images[index--];
+    }
+
+    public ImageText getIndex(final int index) {
+        return images[index];
+    }
+
+    public int getSize() {
+        return images.length;
+    }
+
+    public static List<BufferedImage> getFrames(final File input) {
         Validate.notNull(input, "input");
         List<BufferedImage> images = new ArrayList<>();
         try {
@@ -52,33 +76,5 @@ public class AnimatedMessage {
             ex.printStackTrace();
         }
         return images;
-    }
-
-    public ImageText current() {
-        return images[index];
-    }
-
-    public ImageText next() {
-        index++;
-        if (index >= images.length) {
-            index = 0;
-            return images[index];
-        } else {
-            return images[index];
-        }
-    }
-
-    public ImageText previous() {
-        index--;
-        if (index <= 0) {
-            index = images.length - 1;
-            return images[index];
-        } else {
-            return images[index];
-        }
-    }
-
-    public ImageText getIndex(final int index) {
-        return images[index];
     }
 }
